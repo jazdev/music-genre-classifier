@@ -1,4 +1,7 @@
 import numpy as np
+
+import timeit,os
+
 from collections import defaultdict
 
 from sklearn.metrics import precision_recall_curve, roc_curve
@@ -93,19 +96,20 @@ def train_model(clf_factory, X, Y, name, plot=False):
     print("%.3f\t%.3f\t%.3f\t%.3f\t" % summary)
     #0.475	0.000	0.396	0.135
     
+    #os.mkdir("saved_model_fft")
     joblib.dump(clf, 'saved_model_fft/my_model.pkl')
     
     return np.mean(train_errors), np.mean(test_errors), np.asarray(cms)
 
 
 if __name__ == "__main__":
-    import timeit,os
+    
     start = timeit.default_timer()
     global traverse
     for subdir, dirs, files in os.walk(GENRE_DIR):
         traverse = list(set(dirs).intersection( set(GENRE_LIST) ))
         break
-    #traversed = ".".join(x for x in traverse)
+
     print "Working with these genres --> ", traverse
     
     print "Starting classification"
