@@ -19,14 +19,13 @@ GENRE_DIR = "/home/jaz/Desktop/MAJOR_PROJECT/genres_dataset"
 
 #Working with these genres
 #GENRE_LIST = [ "blues","classical","country","disco","hiphop","jazz","metal","pop","reggae","rock"]
-#GENRE_LIST = [ "blues","country","disco","jazz","pop","rock"]
 GENRE_LIST = [ "blues","jazz","metal","pop","rock"]
 
 # Directory where the test music is located
 TEST_DIR = "/home/jaz/Desktop/MAJOR_PROJECT/genres_test_set"
 
 if GENRE_DIR is None or TEST_DIR is None:
-    print("Please set GENRE_DIR and TEST_DIR in utils.py") 
+    print("Please set GENRE_DIR and TEST_DIR in config.py") 
     sys.exit(1)
 
 def any_to_wav(file_name):
