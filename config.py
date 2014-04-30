@@ -15,14 +15,14 @@ for d in [DATA_DIR, CHART_DIR]:
         os.mkdir(d)
 
 # Directory where the music dataset is located (GTZAN dataset)
-GENRE_DIR = "/home/jaz/Desktop/MAJOR_PROJECT/genres_dataset"
+GENRE_DIR = "/home/jaz/Desktop/genre-project/genres_dataset"
+
+# Directory where the test music is located
+TEST_DIR = "/home/jaz/Desktop/genre-project/genres_test_set"
 
 #Working with these genres
 #GENRE_LIST = [ "blues","classical","country","disco","hiphop","jazz","metal","pop","reggae","rock"]
 GENRE_LIST = [ "blues","jazz","metal","pop","rock"]
-
-# Directory where the test music is located
-TEST_DIR = "/home/jaz/Desktop/MAJOR_PROJECT/genres_test_set"
 
 if GENRE_DIR is None or TEST_DIR is None:
     print("Please set GENRE_DIR and TEST_DIR in config.py") 
