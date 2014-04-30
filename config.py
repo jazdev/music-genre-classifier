@@ -1,18 +1,13 @@
 import os
 import sys
-
-from matplotlib import pylab
+import timeit
 import numpy as np
+from pydub import AudioSegment
+from matplotlib import pylab
 
-DATA_DIR = os.path.join(
-    os.path.dirname(os.path.realpath(__file__)), "data")
-
-CHART_DIR = os.path.join(
-    os.path.dirname(os.path.realpath(__file__)), "charts")
-
-for d in [DATA_DIR, CHART_DIR]:
-    if not os.path.exists(d):
-        os.mkdir(d)
+###################################################
+#    Modify these variables as per need
+###################################################
 
 # Directory where the music dataset is located (GTZAN dataset)
 GENRE_DIR = "/home/jaz/Desktop/genre-project/genres_dataset"
@@ -20,16 +15,61 @@ GENRE_DIR = "/home/jaz/Desktop/genre-project/genres_dataset"
 # Directory where the test music is located
 TEST_DIR = "/home/jaz/Desktop/genre-project/genres_test_set"
 
-#Working with these genres
+# All the available genres
 #GENRE_LIST = [ "blues","classical","country","disco","hiphop","jazz","metal","pop","reggae","rock"]
+
+# Working with these genres
 GENRE_LIST = [ "blues","jazz","metal","pop","rock"]
+
+
+
+###################################################
+#    Don't modify below this line
+###################################################
+
+DATA_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)), "data")
+
+CHART_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)), "charts")
+
+for d in [DATA_DIR, CHART_DIR]:
+    if not os.path.exists(d):
+        os.mkdir(d)
 
 if GENRE_DIR is None or TEST_DIR is None:
     print("Please set GENRE_DIR and TEST_DIR in config.py") 
     sys.exit(1)
 
-def any_to_wav(file_name):
+def convert_any_to_wav(filename):
+    """
+        Converts the input file to the WAV format.
+    """
     pass
+
+def convert_dataset_to_wav(file_name):
+    """
+        Converts all files of the GTZAN dataset
+        to the WAV (uncompressed) format.
+    """
+    start = timeit.default_timer()
+
+    rootdir = '/home/jaz/Desktop/genre-project/genres_test_set'
+
+    for subdir, dirs, files in os.walk(rootdir):
+        for file in files:
+            path = subdir+'/'+file
+            if path.endswith("mp3"):
+                song = AudioSegment.from_file(path,"mp3")
+                song = song[:30000]
+                song.export(path[:-3]+"wav",format='wav')
+
+    for subdir, dirs, files in os.walk(rootdir):
+        for file in files:
+            path = subdir+'/'+file
+            if not path.endswith("wav"):
+                os.remove(path)
+
+    stop = timeit.default_timer()
+    print "Conversion time = ", (stop - start) pass
 
 def plot_confusion_matrix(cm, genre_list, name, title):
     pylab.clf()
@@ -43,12 +83,11 @@ def plot_confusion_matrix(cm, genre_list, name, title):
     pylab.title(title)
     pylab.colorbar()
     pylab.grid(False)
-    
     pylab.xlabel('Predicted class', fontsize = 20)
     pylab.ylabel('True class', fontsize = 20)
     pylab.grid(False)
     pylab.show()
-    #pylab.savefig(os.path.join(CHART_DIR, "confusion_matrix_%s.png" % name), bbox_inches="tight")
+    pylab.savefig(os.path.join(CHART_DIR, "confusion_matrix_%s.png" % name), bbox_inches="tight")
 
 def plot_pr(auc_score, name, precision, recall, label=None):
     pylab.clf()
@@ -62,8 +101,7 @@ def plot_pr(auc_score, name, precision, recall, label=None):
     pylab.ylabel('Precision')
     pylab.title('P/R curve (AUC = %0.2f) / %s' % (auc_score, label))
     filename = name.replace(" ", "_")
-    pylab.savefig(
-        os.path.join(CHART_DIR, "pr_" + filename + ".png"), bbox_inches="tight")
+    pylab.savefig(os.path.join(CHART_DIR, "pr_" + filename + ".png"), bbox_inches="tight")
 
 
 def plot_roc(auc_score, name, tpr, fpr, label=None):
@@ -81,8 +119,7 @@ def plot_roc(auc_score, name, tpr, fpr, label=None):
                 (auc_score, label), verticalalignment="bottom")
     pylab.legend(loc="lower right")
     filename = name.replace(" ", "_")
-    pylab.savefig(
-        os.path.join(CHART_DIR, "roc_" + filename + ".png"), bbox_inches="tight")
+    pylab.savefig(os.path.join(CHART_DIR, "roc_" + filename + ".png"), bbox_inches="tight")
 
 
 def show_most_informative_features(vectorizer, clf, n=20):
@@ -90,6 +127,4 @@ def show_most_informative_features(vectorizer, clf, n=20):
     top = zip(c_f[:n], c_f[:-(n + 1):-1])
     for (c1, f1), (c2, f2) in top:
         print "\t%.4f\t%-15s\t\t%.4f\t%-15s" % (c1, f1, c2, f2)
-
-
 
