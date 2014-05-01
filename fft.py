@@ -12,18 +12,28 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import EngFormatter
 
 def write_fft(fft_features, fn):
+    """
+        Writes the FFT features to disk.
+    """
     base_fn, ext = os.path.splitext(fn)
     data_fn = base_fn + ".fft"
     np.save(data_fn, fft_features)
     print "Written", data_fn
 
 def create_fft(fn):
+    """
+        Creates the FFT features. Calls scipy.fft()
+    """
     sample_rate, X = scipy.io.wavfile.read(fn)
     fft_features = abs(scipy.fft(X)[:1000])
     #print fft_features
     write_fft(fft_features, fn)
 
 def read_fft(genre_list, base_dir=GENRE_DIR):
+    """
+        Reads the FFT features from disk and
+        returns them in a numpy array.
+    """
     X = []
     y = []
     for label, genre in enumerate(genre_list):
