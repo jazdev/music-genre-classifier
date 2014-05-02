@@ -72,6 +72,9 @@ def convert_dataset_to_wav(file_name):
     print "Conversion time = ", (stop - start) pass
 
 def plot_confusion_matrix(cm, genre_list, name, title):
+    """
+        Plots confusion matrices.
+    """
     pylab.clf()
     pylab.matshow(cm, fignum=False, cmap='Blues', vmin=0, vmax=1.0)
     ax = pylab.axes()
@@ -90,6 +93,9 @@ def plot_confusion_matrix(cm, genre_list, name, title):
     pylab.savefig(os.path.join(CHART_DIR, "confusion_matrix_%s.png" % name), bbox_inches="tight")
 
 def plot_pr(auc_score, name, precision, recall, label=None):
+    """
+        Plots Precision-Recall curves.
+    """
     pylab.clf()
     pylab.figure(num=None, figsize=(5, 4))
     pylab.grid(True)
@@ -105,6 +111,9 @@ def plot_pr(auc_score, name, precision, recall, label=None):
 
 
 def plot_roc(auc_score, name, tpr, fpr, label=None):
+    """
+        Plots ROC cuurves.
+    """
     pylab.clf()
     pylab.figure(num=None, figsize=(5, 4))
     pylab.grid(True)
