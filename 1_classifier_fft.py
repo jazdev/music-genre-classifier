@@ -20,6 +20,9 @@ genre_list = GENRE_LIST
 clf = None
 
 def train_model(clf_factory, X, Y, name, plot=False):
+    """
+        Trains and saves model to disk.
+    """
     labels = np.unique(Y)
 
     cv = ShuffleSplit( n=len(X), n_iterations=1, test_fraction=0.3, indices=True, random_state=0)

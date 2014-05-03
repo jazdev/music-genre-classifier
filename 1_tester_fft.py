@@ -19,6 +19,9 @@ from pydub import AudioSegment
 import timeit
 
 def test_model_on_single_file(file_path):
+    """
+        Loads saved model and tests it with the provided test data.
+    """
     clf = joblib.load('saved_model_fft/my_model.pkl')
     X, y = read_fft_test(create_fft_test(test_file))
     probs = clf.predict_proba(X)
