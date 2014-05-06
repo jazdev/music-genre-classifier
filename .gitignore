@@ -4,6 +4,10 @@ __pycache__/
 
 *.*~
 
+#Project directories
+data/
+charts/
+saved_model_fft/
 
 # C extensions
 *.so
