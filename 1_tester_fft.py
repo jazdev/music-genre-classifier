@@ -8,7 +8,9 @@ from sklearn.linear_model.logistic import LogisticRegression
 from sklearn.metrics import confusion_matrix
 from sklearn.externals import joblib
 
-from config import plot_confusion_matrix, GENRE_DIR, GENRE_LIST, TEST_DIR , plot_pr, plot_roc
+from config import GENRE_DIR, GENRE_LIST, TEST_DIR
+
+from utils import plot_confusion_matrix, plot_pr, plot_roc
 
 from fft import read_fft, create_fft_test, read_fft_test
 
@@ -21,9 +23,12 @@ import timeit
 def test_model_on_single_file(file_path):
     """
         Loads saved model and tests it with the provided test data.
+        Converts input file to WAV if required.
     """
+##    if not path.endswith("wav"):
+##        file_path = convert_any_to_wav(file_path)
     clf = joblib.load('saved_model_fft/my_model.pkl')
-    X, y = read_fft_test(create_fft_test(test_file))
+    X, y = read_fft_test(create_fft_test(file_path))
     probs = clf.predict_proba(X)
     probs=probs[0]
     max_prob = max(probs)

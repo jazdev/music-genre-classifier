@@ -11,7 +11,9 @@ from sklearn.linear_model.logistic import LogisticRegression
 from sklearn.metrics import confusion_matrix
 from sklearn.externals import joblib
 
-from config import plot_confusion_matrix, GENRE_LIST, GENRE_DIR, TEST_DIR , plot_pr, plot_roc
+from config import GENRE_LIST, GENRE_DIR, TEST_DIR
+
+from utils import plot_confusion_matrix, plot_pr, plot_roc
 
 from fft import read_fft, create_fft_test, read_fft_test
 

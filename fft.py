@@ -6,9 +6,10 @@ import numpy as np
 import scipy
 import scipy.io.wavfile
 
+import matplotlib.pyplot as plt
+
 from config import GENRE_DIR, CHART_DIR, GENRE_LIST
 
-import matplotlib.pyplot as plt
 from matplotlib.ticker import EngFormatter
 
 def write_fft(fft_features, fn):
