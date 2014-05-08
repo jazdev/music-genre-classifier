@@ -31,9 +31,7 @@ def convert_dataset_to_wav(file_name):
         to the WAV (uncompressed) format.
     """
     start = timeit.default_timer()
-
     rootdir = '/home/jaz/Desktop/genre-project/genres_test_set'
-
     for subdir, dirs, files in os.walk(rootdir):
         for file in files:
             path = subdir+'/'+file
@@ -104,8 +102,7 @@ def plot_roc(auc_score, name, tpr, fpr, label=None):
     pylab.ylim([0.0, 1.0])
     pylab.xlabel('False Positive Rate')
     pylab.ylabel('True Positive Rate')
-    pylab.title('ROC curve (AUC = %0.2f) / %s' %
-                (auc_score, label), verticalalignment="bottom")
+    pylab.title('ROC curve (AUC = %0.2f) / %s' %(auc_score, label), verticalalignment="bottom")
     pylab.legend(loc="lower right")
     filename = name.replace(" ", "_")
     pylab.savefig(os.path.join(CHART_DIR, "roc_" + filename + ".png"), bbox_inches="tight")
