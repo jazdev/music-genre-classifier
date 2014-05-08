@@ -49,35 +49,29 @@ def read_fft(genre_list, base_dir=GENRE_DIR):
     return np.array(X), np.array(y)
 
 def create_fft_test(fn):
+    """
+        Creates the FFT features from the test files,
+        saves them to disk, and returns the saved file name.
+    """
     sample_rate, X = scipy.io.wavfile.read(fn)
-    #print "fn=",fn
-    #print "X.shape=",X.shape
-    #print "sample_rate=",sample_rate
     Y = np.transpose(X)
-    #print "Y.shape=",Y.shape
-    #print Y
-    
     fft_features = abs(scipy.fft(Y)[:1000])
-    #print "fft.shape=",fft_features.shape
     base_fn, ext = os.path.splitext(fn)
     data_fn = base_fn + ".fft"
     np.save(data_fn, fft_features)
     print "Written", data_fn
-    #print fft_features
     data_fn += ".npy"
     return data_fn
     
 def read_fft_test(test_file):
+    """
+        Reads the FFT features from disk and
+        returns them in a numpy array.
+    """
     X = []
     y = []
     fft_features = np.load(test_file)[0]
     X.append(fft_features[:1000])
-    #print X
-    #y.append(label)
-    #print "fft_features read = ", fft_features
-    #print "fft_features read shape = ", fft_features.shape
-    #print "X read = ", X
-    #print "X read shape = ", X[0].shape
     return np.array(X), np.array(y)
 
 def plot_wav_fft(wav_filename, desc=None):
@@ -116,10 +110,6 @@ def plot_wav_fft(wav_filename, desc=None):
 
     plt.show()
 
-def plot_wav_fft_demo():
-    plot_wav_fft("sine_a.wav", "400Hz sine wave")
-    plot_wav_fft("sine_b.wav", "3,000Hz sine wave")
-    plot_wav_fft("sine_mix.wav", "Mixed sine wave")
 
 def plot_specgram(ax, fn):
     sample_rate, X = scipy.io.wavfile.read(fn)
@@ -127,7 +117,7 @@ def plot_specgram(ax, fn):
 
 def plot_specgrams(base_dir=CHART_DIR):
     """
-    Plot a bunch of spectrograms of wav files in different genres
+    Plot a bunch of spectrograms of wav files in different genres.
     """
     plt.clf()
     genres = GENRE_LIST
@@ -145,7 +135,6 @@ def plot_specgrams(base_dir=CHART_DIR):
 
     #specgram_file = os.path.join(base_dir, "Spectrogram_Genres.png")
     #plt.savefig(specgram_file, bbox_inches="tight")
-
     plt.show()
 
 
@@ -159,7 +148,6 @@ if __name__ == "__main__":
         break
     #traversed = ".".join(x for x in traverse)
     print "Working with these genres --> ", traverse
-    
     t=set()
     for subdir, dirs, files in os.walk(GENRE_DIR):
         #print subdir
@@ -171,9 +159,6 @@ if __name__ == "__main__":
                     pass#create_fft(path)
 
     stop = timeit.default_timer()
-
     print "Total FFT generation and feature writing time (s) = ", (stop - start) 
-
     print "Plotting spectrograms"
-
     plot_specgrams()
