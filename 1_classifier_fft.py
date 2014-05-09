@@ -44,14 +44,8 @@ def train_model(clf_factory, X, Y, name, plot=False):
     cms = []
 
     for train, test in cv:
-        #print "test = ",test
-        #print "train = ",train
         X_train, y_train = X[train], Y[train]
         X_test, y_test = X[test], Y[test]
-        #print X_train.shape
-        #print y_train.shape
-        #print X_test.shape
-        #print y_test.shape
         global clf
         clf = LogisticRegression()
         clf.fit(X_train, y_train)
@@ -97,7 +91,6 @@ def train_model(clf_factory, X, Y, name, plot=False):
     all_pr_scores = np.asarray(pr_scores.values()).flatten()
     summary = (np.mean(scores), np.std(scores),np.mean(all_pr_scores), np.std(all_pr_scores))
     print("%.3f\t%.3f\t%.3f\t%.3f\t" % summary)
-    #0.475	0.000	0.396	0.135
     joblib.dump(clf, 'saved_model_fft/my_model.pkl')
     
     return np.mean(train_errors), np.mean(test_errors), np.asarray(cms)
