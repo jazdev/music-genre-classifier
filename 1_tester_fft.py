@@ -20,6 +20,12 @@ import os
 from pydub import AudioSegment
 import timeit
 
+
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#          Please run the tester script first
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
 def test_model_on_single_file(file_path):
     """
         Loads saved model and tests it with the provided test data.

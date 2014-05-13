@@ -24,7 +24,6 @@ def write_fft(fft_features, fn):
 def create_fft(fn):
     """
         Creates the FFT features. 
-	Calls scipy.fft()
     """
     sample_rate, X = scipy.io.wavfile.read(fn)
     fft_features = abs(scipy.fft(X)[:1000])

@@ -32,12 +32,10 @@ def train_model(clf_factory, X, Y, name, plot=False):
     test_errors = []
 
     scores = []
-    pr_scores = defaultdict(list)
-    precisions, recalls, thresholds = defaultdict(list), defaultdict(list), defaultdict(list)
 
-    roc_scores = defaultdict(list)
-    tprs = defaultdict(list)
-    fprs = defaultdict(list)
+    pr_scores, precisions, recalls, thresholds = defaultdict(list), defaultdict(list), defaultdict(list), defaultdict(list)
+
+    roc_scores, tprs, fprs = defaultdict(list), defaultdict(list) ,defaultdict(list)
 
     clfs = []  # just to later get the median
 
@@ -86,11 +84,13 @@ def train_model(clf_factory, X, Y, name, plot=False):
             median = np.argsort(scores_to_sort)[len(scores_to_sort) / 2]
             desc = "%s %s" % (name, genre_list[label])
             #plot_pr(pr_scores[label][median], desc, precisions[label][median],recalls[label][median], label='%s vs rest' % genre_list[label])
-            plot_roc(roc_scores[label][median], desc, tprs[label][median],fprs[label][median], label='%s vs rest' % genre_list[label])
+            #plot_roc(roc_scores[label][median], desc, tprs[label][median],fprs[label][median], label='%s vs rest' % genre_list[label])
 
     all_pr_scores = np.asarray(pr_scores.values()).flatten()
     summary = (np.mean(scores), np.std(scores),np.mean(all_pr_scores), np.std(all_pr_scores))
     print("%.3f\t%.3f\t%.3f\t%.3f\t" % summary)
+
+    #save the trained model to disk
     joblib.dump(clf, 'saved_model_fft/my_model.pkl')
     
     return np.mean(train_errors), np.mean(test_errors), np.asarray(cms)
