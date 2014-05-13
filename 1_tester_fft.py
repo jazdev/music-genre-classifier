@@ -28,12 +28,15 @@ import timeit
 
 def test_model_on_single_file(file_path):
     """
-        Loads saved model and tests it with the provided test data.
-        Converts input file to WAV if required.
+        Loads saved model and tests it with the provided test datafile.
+        Converts the datafile to WAV format, if required.
     """
 ##    if not path.endswith("wav"):
 ##        file_path = convert_any_to_wav(file_path)
+
+    # load saved model from disk
     clf = joblib.load('saved_model_fft/my_model.pkl')
+
     X, y = read_fft_test(create_fft_test(file_path))
     probs = clf.predict_proba(X)
     probs=probs[0]
