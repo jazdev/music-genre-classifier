@@ -86,7 +86,6 @@ def train_model(clf_factory, X, Y, name, plot=False):
             print("Plotting %s"%genre_list[label])
             scores_to_sort = roc_scores[label]
             median = np.argsort(scores_to_sort)[len(scores_to_sort) / 2]
-
             desc = "%s %s" % (name, genre_list[label])
             #plot_roc(roc_scores[label][median], desc, tprs[label][median],fprs[label][median], label='%s vs rest' % genre_list[label])
 
@@ -95,6 +94,7 @@ def train_model(clf_factory, X, Y, name, plot=False):
                np.mean(all_pr_scores), np.std(all_pr_scores))
     print("%.3f\t%.3f\t%.3f\t%.3f\t" % summary)
 
+    #save the trained model to disk
     joblib.dump(clf, 'saved_model_ceps/my_model.pkl')
     
     return np.mean(train_errors), np.mean(test_errors), np.asarray(cms)
