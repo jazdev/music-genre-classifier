@@ -8,12 +8,37 @@ from matplotlib import pylab
 ###################################################
 #    Don't modify below this line
 ###################################################
+config = {}
+execfile("config.cfg", config)
 
+GENRE_DIR = config["GENRE_DIR"]
+TEST_DIR = config["TEST_DIR"]
+GENRE_LIST = config["GENRE_LIST"]
+
+if GENRE_DIR is None or GENRE_DIR is "":
+    print "Please set GENRE_DIR in config.py"
+    sys.exit(1)
+
+elif TEST_DIR is None or TEST_DIR is "":
+    print "Please set TEST_DIR in config.py" 
+    sys.exit(1)    
+
+elif GENRE_LIST is None or len(GENRE_LIST)==0:
+    print "Please set GENRE_LIST in config.py" 
+    sys.exit(1)
+
+else:
+    print "Variables defined in config.cfg :"
+    print "GENRE_DIR ==> ", GENRE_DIR
+    print "TEST_DIR ==> ", TEST_DIR
+    print "GENRE_LIST ==> "," || ".join(x for x in GENRE_LIST)
+
+    
 DATA_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)), "data")
 
 CHART_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)), "charts")
 
-MODEL_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)), "saved_model_fft")
+MODEL_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)), "saved_model")
 
 for d in [DATA_DIR, CHART_DIR, MODEL_DIR]:
     if not os.path.exists(d):
@@ -113,4 +138,6 @@ def show_most_informative_features(vectorizer, clf, n=20):
     top = zip(c_f[:n], c_f[:-(n + 1):-1])
     for (c1, f1), (c2, f2) in top:
         print "\t%.4f\t%-15s\t\t%.4f\t%-15s" % (c1, f1, c2, f2)
+
+
 
