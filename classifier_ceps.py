@@ -8,7 +8,7 @@ from sklearn.linear_model.logistic import LogisticRegression
 from sklearn.metrics import confusion_matrix
 from sklearn.externals import joblib
 
-from config import GENRE_LIST, GENRE_DIR, TEST_DIR
+from utils import GENRE_LIST, GENRE_DIR, TEST_DIR
 
 from utils import plot_confusion_matrix, plot_roc
 
@@ -95,7 +95,7 @@ def train_model(clf_factory, X, Y, name, plot=False):
     print("%.3f\t%.3f\t%.3f\t%.3f\t" % summary)
 
     #save the trained model to disk
-    joblib.dump(clf, 'saved_model_ceps/my_model.pkl')
+    joblib.dump(clf, 'saved_model/model_ceps.pkl')
     
     return np.mean(train_errors), np.mean(test_errors), np.asarray(cms)
 

@@ -7,7 +7,7 @@ import scipy
 import scipy.io.wavfile
 from scikits.talkbox.features import mfcc
 
-from config import GENRE_DIR, CHART_DIR, GENRE_LIST
+from utils import GENRE_DIR, CHART_DIR, GENRE_LIST
 
 def write_ceps(ceps, fn):
     """

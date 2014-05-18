@@ -8,7 +8,7 @@ __pycache__/
 #Project directories
 data/
 charts/
-saved_model_fft/
+saved_model/
 
 # C extensions
 *.so
