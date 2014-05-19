@@ -22,7 +22,7 @@ import timeit
 
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-#          Please run the tester script first
+#          Please run the classifier script first
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
@@ -35,7 +35,7 @@ def test_model_on_single_file(file_path):
 ##        file_path = convert_any_to_wav(file_path)
 
     # load saved model from disk
-    clf = joblib.load('saved_model_fft/my_model.pkl')
+    clf = joblib.load('saved_model/model_fft.pkl')
 
     X, y = read_fft_test(create_fft_test(file_path))
     probs = clf.predict_proba(X)
@@ -53,6 +53,6 @@ if __name__ == "__main__":
     for subdir, dirs, files in os.walk(GENRE_DIR):
         traverse = list(set(dirs).intersection( set(GENRE_LIST) ))
         break
-    test_file = "/home/jaz/Desktop/MAJOR_PROJECT/genres_test_set/Firework.wav"
+    test_file = "/home/jaz/Desktop/genre-project/genres_test_set/Firework.wav"
     print "Testimg model on file: ", test_file
     predicted_genre = test_model_on_single_file(test_file)            
