@@ -1,3 +1,4 @@
+import os
 import numpy as np
 from collections import defaultdict
 
@@ -9,12 +10,10 @@ from sklearn.metrics import confusion_matrix
 from sklearn.externals import joblib
 
 from utils import GENRE_LIST, GENRE_DIR, TEST_DIR
-
 from utils import plot_confusion_matrix, plot_roc
 
 from ceps import read_ceps, create_ceps_test, read_ceps_test
 
-import os
 from pydub import AudioSegment
 
 genre_list = GENRE_LIST

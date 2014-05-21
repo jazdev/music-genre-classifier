@@ -1,3 +1,5 @@
+import os
+import timeit
 import numpy as np
 from collections import defaultdict
 
@@ -12,14 +14,11 @@ from utils import plot_roc, plot_confusion_matrix, GENRE_DIR, GENRE_LIST, TEST_D
 
 from ceps import read_ceps, create_ceps_test, read_ceps_test
 
+from pydub import AudioSegment
+
 genre_list = GENRE_LIST
 
-import os
-from pydub import AudioSegment
-import timeit
-
 clf = None
-
 
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #          Please run the classifier script first
@@ -52,12 +51,3 @@ if __name__ == "__main__":
     test_file = "/home/jaz/Desktop/genre-project/genres_test_set/Metallica - Enter the Sandman -  mp3.pk.wav"
     predicted_genre = test_model_on_single_file(test_file)
     
-
-
-
-
-
-
-
-
-
